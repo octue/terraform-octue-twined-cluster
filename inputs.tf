@@ -26,3 +26,8 @@ variable "google_cloud_credentials_file" {
   type    = string
   default = "gcp-credentials.json"
 }
+
+variable "maximum_event_handler_instances" {
+  type = number
+  default = 100
+}

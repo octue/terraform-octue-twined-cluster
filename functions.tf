@@ -15,7 +15,7 @@ resource "google_cloudfunctions2_function" "service_event_handler" {
   }
 
   service_config {
-    max_instance_count = 100
+    max_instance_count = var.maximum_event_handler_instances
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
