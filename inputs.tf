@@ -18,6 +18,10 @@ variable "octue_service_namespace" {
   type    = string
 }
 
+variable "service_account_names" {
+  type = set(string)
+}
+
 variable "google_cloud_credentials_file" {
   type    = string
   default = "gcp-credentials.json"
