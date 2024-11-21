@@ -3,4 +3,5 @@ resource "google_artifact_registry_repository" "service_docker_images" {
   description   = "Docker image repository for Octue Twined services"
   format        = "DOCKER"
   location      = var.google_cloud_region
+  depends_on   = [time_sleep.wait_for_google_apis_to_enable]
 }
