@@ -33,6 +33,7 @@ resource "google_project_iam_binding" "run_developer" {
   members = [
     "serviceAccount:${google_service_account.github_actions_service_account.email}",
   ]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
@@ -42,6 +43,7 @@ resource "google_project_iam_binding" "artifactregistry_writer" {
   members = [
     "serviceAccount:${google_service_account.github_actions_service_account.email}",
   ]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
@@ -51,13 +53,15 @@ resource "google_project_iam_binding" "storage_objectadmin" {
   members = [
     "serviceAccount:${google_service_account.github_actions_service_account.email}",
   ]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
 resource "google_project_iam_binding" "errorreporting_writer" {
-  project = var.google_cloud_project_id
-  role    = "roles/errorreporting.writer"
-  members = local.all_service_account_emails
+  project    = var.google_cloud_project_id
+  role       = "roles/errorreporting.writer"
+  members    = local.all_service_account_emails
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
@@ -67,25 +71,29 @@ resource "google_project_iam_binding" "bigquery_dataeditor" {
   members = [
     "serviceAccount:service-${var.google_cloud_project_number}@gcp-sa-pubsub.iam.gserviceaccount.com",
   ]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
 resource "google_project_iam_binding" "bigquery_dataviewer" {
-  project = var.google_cloud_project_id
-  role    = "roles/bigquery.dataViewer"
-  members = local.admin_service_account_emails
+  project    = var.google_cloud_project_id
+  role       = "roles/bigquery.dataViewer"
+  members    = local.admin_service_account_emails
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
 resource "google_project_iam_binding" "bigquery_jobuser" {
-  project = var.google_cloud_project_id
-  role    = "roles/bigquery.jobUser"
-  members = local.admin_service_account_emails
+  project    = var.google_cloud_project_id
+  role       = "roles/bigquery.jobUser"
+  members    = local.admin_service_account_emails
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
 resource "google_project_iam_binding" "bigquery_readsessionuser" {
-  project = var.google_cloud_project_id
-  role    = "roles/bigquery.readSessionUser"
-  members = local.admin_service_account_emails
+  project    = var.google_cloud_project_id
+  role       = "roles/bigquery.readSessionUser"
+  members    = local.admin_service_account_emails
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
