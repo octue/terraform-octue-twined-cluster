@@ -47,7 +47,7 @@ resource "google_project_iam_binding" "artifactregistry_writer" {
 
 resource "google_project_iam_binding" "storage_objectadmin" {
   project = var.google_cloud_project_id
-  role = "roles/storage.objectAdmin"
+  role    = "roles/storage.objectAdmin"
   members = [
     "serviceAccount:${google_service_account.github_actions_service_account.email}",
   ]
@@ -56,14 +56,14 @@ resource "google_project_iam_binding" "storage_objectadmin" {
 
 resource "google_project_iam_binding" "errorreporting_writer" {
   project = var.google_cloud_project_id
-  role = "roles/errorreporting.writer"
+  role    = "roles/errorreporting.writer"
   members = local.all_service_account_emails
 }
 
 
 resource "google_project_iam_binding" "bigquery_dataeditor" {
   project = var.google_cloud_project_id
-  role = "roles/bigquery.dataEditor"
+  role    = "roles/bigquery.dataEditor"
   members = [
     "serviceAccount:service-${var.google_cloud_project_number}@gcp-sa-pubsub.iam.gserviceaccount.com",
   ]
@@ -72,20 +72,20 @@ resource "google_project_iam_binding" "bigquery_dataeditor" {
 
 resource "google_project_iam_binding" "bigquery_dataviewer" {
   project = var.google_cloud_project_id
-  role = "roles/bigquery.dataViewer"
+  role    = "roles/bigquery.dataViewer"
   members = local.admin_service_account_emails
 }
 
 
 resource "google_project_iam_binding" "bigquery_jobuser" {
   project = var.google_cloud_project_id
-  role = "roles/bigquery.jobUser"
+  role    = "roles/bigquery.jobUser"
   members = local.admin_service_account_emails
 }
 
 
 resource "google_project_iam_binding" "bigquery_readsessionuser" {
   project = var.google_cloud_project_id
-  role = "roles/bigquery.readSessionUser"
+  role    = "roles/bigquery.readSessionUser"
   members = local.admin_service_account_emails
 }

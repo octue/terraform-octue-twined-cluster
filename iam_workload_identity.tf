@@ -6,22 +6,22 @@ resource "google_iam_workload_identity_pool" "github_actions_pool" {
 
 
 resource "google_iam_workload_identity_pool_provider" "github_actions_provider" {
-    workload_identity_pool_id          = "github-actions-pool"
-    workload_identity_pool_provider_id = "github-actions-provider"
-    display_name                       = "Github Actions Provider"
-    project                            = var.google_cloud_project_number
+  workload_identity_pool_id          = "github-actions-pool"
+  workload_identity_pool_provider_id = "github-actions-provider"
+  display_name                       = "Github Actions Provider"
+  project                            = var.google_cloud_project_number
 
-    attribute_mapping                  = {
-        "attribute.actor"            = "assertion.actor"
-        "attribute.repository"       = "assertion.repository"
-        "attribute.repository_owner" = "assertion.repository_owner"
-        "google.subject"             = "assertion.sub"
-    }
+  attribute_mapping = {
+    "attribute.actor"            = "assertion.actor"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+    "google.subject"             = "assertion.sub"
+  }
 
-    oidc {
-        allowed_audiences = []
-        issuer_uri        = "https://token.actions.githubusercontent.com"
-    }
+  oidc {
+    allowed_audiences = []
+    issuer_uri        = "https://token.actions.githubusercontent.com"
+  }
 }
 
 

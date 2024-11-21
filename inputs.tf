@@ -1,5 +1,5 @@
 variable "google_cloud_project_id" {
-  type    = string
+  type = string
 }
 
 variable "google_cloud_project_number" {
@@ -11,11 +11,11 @@ variable "google_cloud_region" {
 }
 
 variable "github_organisation" {
-  type    = string
+  type = string
 }
 
 variable "twined_service_namespace" {
-  type    = string
+  type = string
 }
 
 variable "service_account_names" {
@@ -28,6 +28,6 @@ variable "google_cloud_credentials_file" {
 }
 
 variable "maximum_event_handler_instances" {
-  type = number
+  type    = number
   default = 100
 }
