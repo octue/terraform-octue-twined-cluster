@@ -1,6 +1,6 @@
 resource "google_service_account" "github_actions_service_account" {
     account_id   = "github-actions"
-    description  = "Allow GitHub Actions to test Octue services."
+    description  = "Allow GitHub Actions to test and deploy Octue services."
     display_name = "github-actions"
     project      = var.google_cloud_project_id
 }
