@@ -1,6 +1,6 @@
-resource "google_cloudfunctions2_function" "octue_service_event_handler" {
-  name        = "${var.octue_service_namespace}-octue-service-event-handler"
-  description = "A function for handling events from Octue services."
+resource "google_cloudfunctions2_function" "service_event_handler" {
+  name        = "${var.twined_service_namespace}-octue-twined-service-event-handler"
+  description = "A function for handling events from Octue Twined services."
   location    = var.google_cloud_region
 
   build_config {
@@ -19,7 +19,7 @@ resource "google_cloudfunctions2_function" "octue_service_event_handler" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.octue_service_events_dataset.dataset_id}.${google_bigquery_table.octue_service_events_table.table_id}"
+      BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.service_events_dataset.dataset_id}.${google_bigquery_table.service_events_table.table_id}"
     }
   }
 

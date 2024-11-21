@@ -1,3 +1,3 @@
-resource "google_pubsub_topic" "octue_services_topic" {
+resource "google_pubsub_topic" "services_topic" {
   name = "octue.services"
 }

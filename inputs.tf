@@ -14,7 +14,7 @@ variable "github_organisation" {
   type    = string
 }
 
-variable "octue_service_namespace" {
+variable "twined_service_namespace" {
   type    = string
 }
 
