@@ -5,7 +5,6 @@ locals {
       "bigquery.googleapis.com",              # BigQuery provides the event store for Twined service events (questions, results, log messages etc.).
       "cloudbuild.googleapis.com",
       "cloudfunctions.googleapis.com",        # Cloud Functions runs the event handler that directs Twined service events to the event store.
-      "cloudresourcemanager.googleapis.com",  # Cloud Resource Manager is needed to orchestrate resources
       "iam.googleapis.com",                   # IAM provides fine-grained authentication and authorisation to use and access the Twined services and input/output data.
       "pubsub.googleapis.com",                # Pub/Sub is the transport mechanism for Twined service events.
       "run.googleapis.com"                    # Cloud Run runs the Twined services as docker containers.
