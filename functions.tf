@@ -19,7 +19,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.service_events_dataset.dataset_id}.${google_bigquery_table.service_events_table.table_id}"
+      BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
     }
   }
 
