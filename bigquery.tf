@@ -10,6 +10,7 @@ resource "google_bigquery_table" "service_event_table" {
   dataset_id = google_bigquery_dataset.service_event_dataset.dataset_id
   clustering = ["sender", "question_uuid"]
   depends_on   = [time_sleep.wait_for_google_apis_to_enable]
+  deletion_protection = var.deletion_protection
 
   schema = <<EOF
 [

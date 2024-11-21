@@ -31,3 +31,9 @@ variable "maximum_event_handler_instances" {
   type    = number
   default = 100
 }
+
+variable "deletion_protection" {
+  type    = bool
+  default = true
+  description = "Apply deletion protection to the event store."
+}
