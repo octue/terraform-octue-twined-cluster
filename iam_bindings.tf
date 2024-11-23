@@ -8,26 +8,32 @@ locals {
     local.admin_service_account_emails
   )
 
-  roles_all = [
-    "roles/iam.serviceAccountUser",
-    "roles/pubsub.editor",
-    "roles/errorreporting.writer"
-  ]
+  roles_all = toset(
+    [
+      "roles/iam.serviceAccountUser",
+      "roles/pubsub.editor",
+      "roles/errorreporting.writer"
+    ]
+  )
 
-  roles_github_actions = [
-    # Allows the GHA to call "namespaces get" for Cloud Run to determine the resulting run URLs of the services.
-    # This should also allow a service to get its own name by using:
-    #   https://stackoverflow.com/questions/65628822/google-cloud-run-can-a-service-know-its-own-url/65634104#65634104
-    "roles/run.developer",
-    "roles/artifactregistry.writer",
-    "roles/storage.objectAdmin"
-  ]
+  roles_github_actions = toset(
+    [
+      # Allows the GHA to call "namespaces get" for Cloud Run to determine the resulting run URLs of the services.
+      # This should also allow a service to get its own name by using:
+      #   https://stackoverflow.com/questions/65628822/google-cloud-run-can-a-service-know-its-own-url/65634104#65634104
+      "roles/run.developer",
+      "roles/artifactregistry.writer",
+      "roles/storage.objectAdmin"
+    ]
+  )
 
-  roles_admin_accounts = [
-    "roles/bigquery.dataViewer",
-    "roles/bigquery.jobUser",
-    "roles/bigquery.readSessionUser",
-  ]
+  roles_admin_accounts = toset(
+    [
+      "roles/bigquery.dataViewer",
+      "roles/bigquery.jobUser",
+      "roles/bigquery.readSessionUser",
+    ]
+  )
 }
 
 
