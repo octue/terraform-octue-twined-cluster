@@ -37,3 +37,9 @@ variable "deletion_protection" {
   default = true
   description = "Apply deletion protection to the event store."
 }
+
+variable "use_gha_workload_identity_federation" {
+  type = bool
+  default = false
+  description = "Create a workload identity federation pool and provider for GitHub Actions."
+}
