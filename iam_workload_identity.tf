@@ -35,11 +35,10 @@ data "google_iam_policy" "workload_identity_pool_policy" {
   count = var.use_gha_workload_identity_federation ? 1 : 0
   binding {
     role = "roles/iam.workloadIdentityUser"
-    members = [
-      "principalSet://iam.googleapis.com/projects/${var.google_cloud_project_number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool.workload_identity_pool_id}/attribute.repository_owner/${var.github_organisation}"
-    ]
+    // Avoid missing resource instance key for the pool if `use_gha_workload_identity_federation` is false.
+    members = var.use_gha_workload_identity_federation ? ["principalSet://iam.googleapis.com/projects/${var.google_cloud_project_number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool.workload_identity_pool_id}/attribute.repository_owner/${var.github_organisation}"] : []
   }
-  depends_on = [time_sleep.wait_for_google_apis_to_enable, google_iam_workload_identity_pool.github_actions_pool]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
