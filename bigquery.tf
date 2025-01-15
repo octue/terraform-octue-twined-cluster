@@ -6,7 +6,7 @@ resource "google_bigquery_dataset" "service_event_dataset" {
 }
 
 resource "google_bigquery_table" "service_event_table" {
-  table_id   = "service-events"
+  table_id   = "${var.environment}-service-events"
   dataset_id = google_bigquery_dataset.service_event_dataset.dataset_id
   clustering = ["sender", "question_uuid"]
   depends_on   = [time_sleep.wait_for_google_apis_to_enable]
