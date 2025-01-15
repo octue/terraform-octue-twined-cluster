@@ -20,6 +20,7 @@ variable "twined_service_namespace" {
 
 variable "environment" {
   type = string
+  default = "main"
 }
 
 variable "service_account_names" {
