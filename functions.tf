@@ -3,6 +3,13 @@ resource "google_cloudfunctions2_function" "event_handler" {
   description = "A function for handling events from Octue Twined services."
   location    = var.google_cloud_region
 
+  lifecycle {
+    ignore_changes = [
+      build_config[0].source[0].storage_source[0].generation,
+      build_config[0].source[0].storage_source[0].metageneration
+    ]
+  }
+
   build_config {
     runtime     = "python312"
     entry_point = "store_pub_sub_event_in_bigquery"
