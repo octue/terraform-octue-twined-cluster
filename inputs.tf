@@ -10,10 +10,6 @@ variable "github_organisation" {
   type = string
 }
 
-variable "twined_service_namespace" {
-  type = string
-}
-
 variable "environment" {
   type = string
   default = "main"

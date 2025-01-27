@@ -1,12 +1,12 @@
 resource "google_bigquery_dataset" "service_event_dataset" {
-  dataset_id  = "${var.twined_service_namespace}_octue_twined"
+  dataset_id  = "${var.environment}_octue_twined"
   description = "A dataset for storing Octue Twined service events."
   location    = var.google_cloud_region
   depends_on   = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 resource "google_bigquery_table" "service_event_table" {
-  table_id   = "${var.environment}-service-events"
+  table_id   = "service-events"
   dataset_id = google_bigquery_dataset.service_event_dataset.dataset_id
   clustering = ["sender", "question_uuid"]
   depends_on   = [time_sleep.wait_for_google_apis_to_enable]

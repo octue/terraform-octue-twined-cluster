@@ -1,5 +1,5 @@
 resource "google_cloudfunctions2_function" "event_handler" {
-  name        = "${var.environment}-${var.twined_service_namespace}-octue-twined-service-event-handler"
+  name        = "${var.environment}-octue-twined-service-event-handler"
   description = "A function for handling events from Octue Twined services."
   location    = var.google_cloud_region
 
