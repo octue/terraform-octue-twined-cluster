@@ -33,6 +33,8 @@ data "kubectl_path_documents" "kueue_resources" {
   vars = {
     cpus = var.cpus
     memory = var.memory
+    local_queue = var.local_queue
+    cluster_queue = var.cluster_queue
   }
 }
 

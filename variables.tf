@@ -50,3 +50,13 @@ variable "memory" {
   type = string
   default = "2Gi"
 }
+
+variable "local_queue" {
+  type = string
+  default = "local-queue"
+}
+
+variable "cluster_queue" {
+  type = string
+  default = "cluster-queue"
+}
