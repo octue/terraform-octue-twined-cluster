@@ -20,6 +20,8 @@ resource "google_cloudfunctions2_function" "event_handler" {
     timeout_seconds    = 60
     environment_variables = {
       BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
+      KUEUE_LOCAL_QUEUE = var.local_queue
+      ARTIFACT_REGISTRY_REPOSITORY_URL = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${google_artifact_registry_repository.service_docker_images.name}"
     }
   }
 
