@@ -1,7 +1,7 @@
 resource "google_iam_workload_identity_pool" "github_actions_pool" {
   count = var.use_gha_workload_identity_federation ? 1 : 0
-  workload_identity_pool_id = "github-actions-pool"
-  display_name              = "github-actions-pool"
+  workload_identity_pool_id = "${var.environment}-github-actions-pool"
+  display_name              = "${var.environment}-github-actions-pool"
   project                   = var.google_cloud_project_id
   depends_on                = [time_sleep.wait_for_google_apis_to_enable]
 }
@@ -9,9 +9,9 @@ resource "google_iam_workload_identity_pool" "github_actions_pool" {
 
 resource "google_iam_workload_identity_pool_provider" "github_actions_provider" {
   count = var.use_gha_workload_identity_federation ? 1 : 0
-  workload_identity_pool_id          = "github-actions-pool"
-  workload_identity_pool_provider_id = "github-actions-provider"
-  display_name                       = "Github Actions Provider"
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool.id
+  workload_identity_pool_provider_id = "${var.environment}-github-actions-provider"
+  display_name                       = "${var.environment}-github-actions-provider"
   project                            = data.google_project.project.number
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
