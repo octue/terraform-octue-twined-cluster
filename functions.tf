@@ -5,11 +5,11 @@ resource "google_cloudfunctions2_function" "event_handler" {
 
   build_config {
     runtime     = "python312"
-    entry_point = "store_pub_sub_event_in_bigquery"
+    entry_point = "handle_event"
     source {
       storage_source {
         bucket = "twined-gcp"
-        object = "event_handler/0.6.1.zip"
+        object = "event_handler/0.7.0-rc.1.zip"
       }
     }
   }
