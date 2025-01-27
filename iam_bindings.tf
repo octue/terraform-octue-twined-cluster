@@ -68,7 +68,7 @@ resource "google_project_iam_binding" "bigquery_dataeditor" {
   project = var.google_cloud_project_id
   role    = "roles/bigquery.dataEditor"
   members = [
-    "serviceAccount:service-${var.google_cloud_project_number}@gcp-sa-pubsub.iam.gserviceaccount.com",
+    "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com",
   ]
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }

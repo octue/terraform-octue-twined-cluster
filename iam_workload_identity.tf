@@ -12,7 +12,7 @@ resource "google_iam_workload_identity_pool_provider" "github_actions_provider" 
   workload_identity_pool_id          = "github-actions-pool"
   workload_identity_pool_provider_id = "github-actions-provider"
   display_name                       = "Github Actions Provider"
-  project                            = var.google_cloud_project_number
+  project                            = data.google_project.project.number
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
   attribute_condition = "attribute.repository_owner==\"${var.github_organisation}\""
@@ -36,7 +36,7 @@ data "google_iam_policy" "workload_identity_pool_policy" {
   binding {
     role = "roles/iam.workloadIdentityUser"
     members = [
-      "principalSet://iam.googleapis.com/projects/${var.google_cloud_project_number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool[0].workload_identity_pool_id}/attribute.repository_owner/${var.github_organisation}"
+      "principalSet://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool[0].workload_identity_pool_id}/attribute.repository_owner/${var.github_organisation}"
     ]
   }
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
