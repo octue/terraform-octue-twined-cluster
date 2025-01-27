@@ -9,7 +9,7 @@ resource "google_iam_workload_identity_pool" "github_actions_pool" {
 
 resource "google_iam_workload_identity_pool_provider" "github_actions_provider" {
   count = var.use_gha_workload_identity_federation ? 1 : 0
-  workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool.id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool[0].id
   workload_identity_pool_provider_id = "${var.environment}-github-actions-provider"
   display_name                       = "${var.environment}-github-actions-provider"
   project                            = data.google_project.project.number
