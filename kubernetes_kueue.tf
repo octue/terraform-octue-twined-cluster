@@ -29,7 +29,7 @@ resource "time_sleep" "wait_for_kueue_installation" {
 
 
 data "kubectl_path_documents" "kueue_resources" {
-  pattern = "./kueue_manifests/*.yaml"
+  pattern = "${path.module}/kueue_resources/*.yaml"
   vars = {
     cpus = var.cpus
     memory = var.memory
