@@ -9,7 +9,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     source {
       storage_source {
         bucket = "twined-gcp"
-        object = "event_handler/0.7.0-rc.3.zip"
+        object = "event_handler/0.7.0-rc.9.zip"
       }
     }
   }
@@ -21,7 +21,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     environment_variables = {
       ARTIFACT_REGISTRY_REPOSITORY_URL = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${google_artifact_registry_repository.service_docker_images.name}"
       BIGQUERY_EVENTS_TABLE = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
-      KUBERNETES_CLUSTER_HOST = "https://${google_container_cluster.primary.endpoint}"
+      KUBERNETES_CLUSTER_ID = google_container_cluster.primary.id
       KUEUE_LOCAL_QUEUE = var.local_queue
       OCTUE_SERVICES_TOPIC = google_pubsub_topic.services_topic.name
     }
