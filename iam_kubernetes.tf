@@ -1,5 +1,13 @@
 locals {
-  cluster_iam_roles = tolist(["roles/container.defaultNodeServiceAccount", "roles/artifactregistry.reader"])
+  cluster_iam_roles = tolist(
+    [
+      "roles/container.defaultNodeServiceAccount",
+      "roles/artifactregistry.reader",
+      "roles/iam.serviceAccountUser",
+      "roles/pubsub.editor",
+      "roles/errorreporting.writer"
+    ]
+  )
   # eventarc_roles = tolist(
   #   [
   #     "roles/compute.viewer",
