@@ -35,7 +35,7 @@ resource "google_project_iam_member" "default_node_service_account" {
 
 resource "kubernetes_service_account" "kubernetes_google_wif_service_account" {
   metadata {
-    name = "google_workload_identity_federation"
+    name = "google-workload-identity-federation"
   }
 }
 
