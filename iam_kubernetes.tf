@@ -33,6 +33,21 @@ resource "google_project_iam_member" "default_node_service_account" {
 }
 
 
+resource "kubernetes_service_account" "kubernetes_google_wif_service_account" {
+  metadata {
+    name = "google_workload_identity_federation"
+  }
+}
+
+
+resource "google_project_iam_member" "kubernetes_wif_roles" {
+  count = length(local.cluster_iam_roles)
+  project = var.google_cloud_project_id
+  role    = local.cluster_iam_roles[count.index]
+  member  = "principal://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${var.google_cloud_project_id}.svc.id.goog/subject/ns/default/sa/${kubernetes_service_account.kubernetes_google_wif_service_account.metadata.name}"
+}
+
+
 # # Creating these IAM bindings is the equivalent of running `gcloud eventarc gke-destinations init` and
 # # `gcloud beta services identity create --service eventarc.googleapis.com`.
 # resource "google_project_iam_binding" "eventarc_service_agent_gke_destinations_bindings" {
