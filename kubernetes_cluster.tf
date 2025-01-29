@@ -3,7 +3,7 @@ resource "google_container_cluster" "primary" {
   location = var.google_cloud_region
   enable_autopilot = true
   deletion_protection = var.deletion_protection
-  depends_on = [time_sleep.wait_for_google_apis_to_enable, google_project_iam_binding.default_node_service_account]
+  depends_on = [time_sleep.wait_for_google_apis_to_enable, google_project_iam_member.default_node_service_account]
 }
 
 

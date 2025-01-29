@@ -55,20 +55,18 @@ resource "google_project_iam_binding" "iam_admin_accounts" {
 }
 
 
-resource "google_project_iam_binding" "iam_github_actions" {
+resource "google_project_iam_member" "iam_github_actions" {
   for_each = local.roles_github_actions
   project = var.google_cloud_project_id
   role    = each.key
-  members = ["serviceAccount:${google_service_account.github_actions_service_account.email}"]
+  member = "serviceAccount:${google_service_account.github_actions_service_account.email}"
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
-resource "google_project_iam_binding" "bigquery_dataeditor" {
+resource "google_project_iam_member" "bigquery_dataeditor" {
   project = var.google_cloud_project_id
   role    = "roles/bigquery.dataEditor"
-  members = [
-    "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com",
-  ]
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }

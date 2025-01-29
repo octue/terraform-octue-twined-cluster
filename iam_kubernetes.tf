@@ -25,11 +25,11 @@ locals {
 }
 
 
-resource "google_project_iam_binding" "default_node_service_account" {
+resource "google_project_iam_member" "default_node_service_account" {
   count = length(local.cluster_iam_roles)
   project = var.google_cloud_project_id
   role    = local.cluster_iam_roles[count.index]
-  members = ["serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"]
+  member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
 }
 
 
