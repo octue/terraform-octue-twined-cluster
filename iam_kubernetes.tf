@@ -4,7 +4,7 @@ locals {
       "roles/container.defaultNodeServiceAccount",
       "roles/artifactregistry.reader",
       "roles/iam.serviceAccountUser",
-      "roles/pubsub.editor",
+      "roles/pubsub.admin",
       "roles/errorreporting.writer"
     ]
   )
