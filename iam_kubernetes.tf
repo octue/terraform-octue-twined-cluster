@@ -33,9 +33,17 @@ resource "google_project_iam_member" "default_node_service_account" {
 }
 
 
+# gcloud iam service-accounts add-iam-policy-binding GSA_NAME@PROJECT_ID.iam.gserviceaccount.com \
+#     --role roles/iam.workloadIdentityUser \
+#     --member "GSA_NAME:PROJECT_ID.svc.id.goog[KSA_NAME]"
+
+
 resource "kubernetes_service_account" "kubernetes_google_wif_service_account" {
   metadata {
     name = "google-workload-identity-federation"
+    annotations = {
+      "iam.gke.io/gcp-service-account" = "${data.google_project.project.number}-compute@developer.gserviceaccount.com"
+    }
   }
 }
 
