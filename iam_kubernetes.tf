@@ -44,7 +44,7 @@ resource "google_project_iam_member" "kubernetes_wif_roles" {
   count = length(local.cluster_iam_roles)
   project = var.google_cloud_project_id
   role    = local.cluster_iam_roles[count.index]
-  member  = "principal://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${var.google_cloud_project_id}.svc.id.goog/subject/ns/default/sa/${kubernetes_service_account.kubernetes_google_wif_service_account.metadata.name}"
+  member  = "principal://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${var.google_cloud_project_id}.svc.id.goog/subject/ns/default/sa/${kubernetes_service_account.kubernetes_google_wif_service_account.metadata[0].name}"
 }
 
 
