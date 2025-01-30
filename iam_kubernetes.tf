@@ -1,5 +1,5 @@
 locals {
-  cluster_iam_roles = tolist(
+  kubernetes_node_roles = tolist(
     [
       "roles/container.defaultNodeServiceAccount",
       "roles/artifactregistry.reader",
@@ -11,17 +11,18 @@ locals {
 }
 
 
-resource "google_project_iam_member" "default_node_service_account" {
-  count = length(local.cluster_iam_roles)
-  project = var.google_cloud_project_id
-  role    = local.cluster_iam_roles[count.index]
-  member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
+resource "google_service_account" "kubernetes_node_service_account" {
+  account_id   = "${var.environment}-octue-twined-kubernetes"
+  display_name = "${var.environment}-octue-twined-kubernetes"
+  project      = var.google_cloud_project_id
+  description  = "Allow the Octue Twined Kubernetes cluster to access resources in the ${var.environment} environment."
+  depends_on   = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
-resource "google_project_iam_member" "default_node_service_account" {
-  count = length(local.cluster_iam_roles)
+resource "google_project_iam_member" "kubernetes_node_roles" {
+  count = length(local.kubernetes_node_roles)
   project = var.google_cloud_project_id
-  role    = local.cluster_iam_roles[count.index]
+  role    = local.kubernetes_node_roles[count.index]
   member  = "serviceAccount:${google_service_account.kubernetes_node_service_account.email}"
 }
