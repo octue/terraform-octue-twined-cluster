@@ -5,7 +5,7 @@ resource "google_container_cluster" "primary" {
 
   cluster_autoscaling {
     auto_provisioning_defaults {
-      service_account = google_service_account.kubernetes_node_service_account.email
+      service_account = google_service_account.kubernetes.email
     }
   }
 
