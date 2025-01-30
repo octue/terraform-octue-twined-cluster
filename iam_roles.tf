@@ -10,9 +10,9 @@ locals {
 
   roles_all = toset(
     [
-      "roles/iam.serviceAccountUser",
+      # "roles/iam.serviceAccountUser",
       "roles/pubsub.editor",
-      "roles/errorreporting.writer"
+      # "roles/errorreporting.writer"
     ]
   )
 
