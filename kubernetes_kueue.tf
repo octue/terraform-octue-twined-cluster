@@ -1,6 +1,6 @@
 # Get the Kueue installation manifests.
 data "http" "kueue_installation_manifests" {
-  url = "https://github.com/kubernetes-sigs/kueue/releases/download/${var.kueue_version}/manifests.yaml"
+  url = var.kueue_installation_mirror == null ? "https://github.com/kubernetes-sigs/kueue/releases/download/${var.kueue_version}/manifests.yaml": var.kueue_installation_mirror
 }
 
 

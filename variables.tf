@@ -41,6 +41,12 @@ variable "kueue_version" {
   default = "v0.10.1"
 }
 
+variable "kueue_installation_mirror" {
+  type = string
+  nullable = true
+  description = "Provide an alternative URL for Kueue installation here if required (for example, if the GitHub releases cache is down) e.g. 'github.com/kubernetes-sigs/kueue/config/default?ref=main'. Note that, if provided, this variable overrides the `kueue_version` variable."
+}
+
 variable "cpus" {
   type = number
   default = 2
