@@ -27,7 +27,7 @@ variable "maximum_event_handler_instances" {
 variable "deletion_protection" {
   type        = bool
   default     = true
-  description = "Apply deletion protection to the event store and Kubernetes cluster."
+  description = "Apply deletion protection to the event store, Kubernetes cluster, and storage buckets."
 }
 
 variable "use_gha_workload_identity_federation" {

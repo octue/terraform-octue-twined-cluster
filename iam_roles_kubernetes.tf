@@ -5,7 +5,8 @@ locals {
       "roles/artifactregistry.reader",
       "roles/iam.serviceAccountUser",
       "roles/pubsub.admin",
-      "roles/errorreporting.writer"
+      "roles/errorreporting.writer",
+      "roles/storage.admin",
     ]
   )
 }
