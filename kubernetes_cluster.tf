@@ -23,5 +23,8 @@ resource "time_sleep" "wait_for_cluster_to_be_ready" {
 resource "kubernetes_service_account" "default" {
   metadata {
     name = "${var.environment}-octue-twined-kubernetes-service-account"
+    annotations = {
+      "iam.gke.io/gcp-service-account" = google_service_account.kubernetes.email
+    }
   }
 }
