@@ -16,14 +16,14 @@ resource "kubectl_manifest" "install_kueue" {
     for manifest in local.kueue_manifests :
     "${manifest.kind}--${manifest.metadata.name}" => manifest
   }
-  yaml_body = yamlencode(each.value)
+  yaml_body         = yamlencode(each.value)
   server_side_apply = true
-  depends_on = [time_sleep.wait_for_cluster_to_be_ready]
+  depends_on        = [time_sleep.wait_for_cluster_to_be_ready]
 }
 
 
 resource "time_sleep" "wait_for_kueue_installation" {
-  depends_on = [kubectl_manifest.install_kueue]
+  depends_on      = [kubectl_manifest.install_kueue]
   create_duration = "3m"
 }
 
@@ -31,17 +31,17 @@ resource "time_sleep" "wait_for_kueue_installation" {
 data "kubectl_path_documents" "kueue_resources" {
   pattern = "${path.module}/kueue_resources/*.yaml"
   vars = {
-    cpus = var.cpus
-    memory = var.memory
-    local_queue = var.local_queue
+    cpus          = var.cpus
+    memory        = var.memory
+    local_queue   = var.local_queue
     cluster_queue = var.cluster_queue
   }
 }
 
 
 resource "kubectl_manifest" "create_kueue_resources" {
-    for_each  = data.kubectl_path_documents.kueue_resources.manifests
-    yaml_body = each.value
-    server_side_apply = true
-    depends_on = [time_sleep.wait_for_kueue_installation]
+  for_each          = data.kubectl_path_documents.kueue_resources.manifests
+  yaml_body         = each.value
+  server_side_apply = true
+  depends_on        = [time_sleep.wait_for_kueue_installation]
 }
