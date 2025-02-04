@@ -24,6 +24,11 @@ variable "maximum_event_handler_instances" {
   default = 100
 }
 
+variable "maximum_service_registry_instances" {
+  type    = number
+  default = 10
+}
+
 variable "deletion_protection" {
   type        = bool
   default     = true

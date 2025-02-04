@@ -35,3 +35,30 @@ resource "google_cloudfunctions2_function" "event_handler" {
     retry_policy   = "RETRY_POLICY_RETRY"
   }
 }
+
+
+resource "google_cloudfunctions2_function" "service_registry" {
+  name        = "${var.environment}-octue-twined-service-registry"
+  description = "A lightweight service registry for Octue Twined services running on Kueue."
+  location    = var.google_cloud_region
+
+  build_config {
+    runtime     = "python312"
+    entry_point = "handle_request"
+    source {
+      storage_source {
+        bucket = "twined-gcp"
+        object = "service_registry/0.7.0-rc.0.zip"
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = var.maximum_service_registry_instances
+    available_memory   = "256M"
+    timeout_seconds    = 60
+    environment_variables = {
+      ARTIFACT_REGISTRY_REPOSITORY_ID = google_artifact_registry_repository.service_docker_images.id
+    }
+  }
+}
