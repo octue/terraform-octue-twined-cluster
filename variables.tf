@@ -49,11 +49,19 @@ variable "kueue_version" {
 variable "cpus" {
   type    = number
   default = 2
+  description = "The maximum number of CPUs to provide to the cluster queue."
 }
 
 variable "memory" {
   type    = string
   default = "2Gi"
+  description = "The maximum amount of memory to provide to the cluster queue."
+}
+
+variable "ephemeral_storage" {
+  type = string
+  default = "8Gi"
+  description = "The maximum amount of ephemeral storage to provide to the cluster queue."
 }
 
 variable "local_queue" {
