@@ -48,7 +48,7 @@ resource "google_cloudfunctions2_function" "service_registry" {
     source {
       storage_source {
         bucket = "twined-gcp"
-        object = "service_registry/0.7.0-rc.0.zip"
+        object = "service_registry/0.7.0-rc.1.zip"
       }
     }
   }
