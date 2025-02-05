@@ -31,6 +31,6 @@ resource "google_project_iam_member" "kubernetes_service_account__roles" {
 
 resource "google_storage_bucket_iam_member" "kubernetes__storage__admin" {
   bucket = google_storage_bucket.default.name
-  role = "roles/storage.admin"
+  role   = "roles/storage.admin"
   member = "serviceAccount:${google_service_account.kubernetes.email}"
 }

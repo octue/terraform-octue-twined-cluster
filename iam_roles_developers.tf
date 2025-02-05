@@ -62,16 +62,16 @@ resource "google_project_iam_member" "developers__bigquery__read_session_user" {
 
 
 resource "google_project_iam_member" "developers__storage__admin" {
-  for_each   = local.developer_service_account_emails
-  project    = var.google_cloud_project_id
-  role       = "roles/storage.admin"
-  member     = each.value
+  for_each = local.developer_service_account_emails
+  project  = var.google_cloud_project_id
+  role     = "roles/storage.admin"
+  member   = each.value
 }
 
 
 resource "google_storage_bucket_iam_member" "developers__default_bucket__storage__admin" {
   for_each = local.developer_service_account_emails
-  bucket = google_storage_bucket.default.name
-  role = "roles/storage.admin"
-  member = each.value
+  bucket   = google_storage_bucket.default.name
+  role     = "roles/storage.admin"
+  member   = each.value
 }

@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "default" {
-  name     = "${var.environment}-${var.github_organisation}-octue-twined"
-  location = var.google_cloud_region
+  name                        = "${var.environment}-${var.github_organisation}-octue-twined"
+  location                    = var.google_cloud_region
   uniform_bucket_level_access = true
 
   autoclass {
