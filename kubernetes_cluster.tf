@@ -9,6 +9,14 @@ resource "google_container_cluster" "primary" {
     }
   }
 
+  maintenance_policy {
+    recurring_window {
+      start_time = "2025-02-09T02:00:00Z"
+      end_time = "2025-02-09T06:00:00Z"
+      recurrence = "FREQ=DAILY"
+    }
+  }
+
   deletion_protection = var.deletion_protection
   depends_on          = [time_sleep.wait_for_google_apis_to_enable]
 }
