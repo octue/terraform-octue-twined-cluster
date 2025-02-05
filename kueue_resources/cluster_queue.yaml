@@ -10,8 +10,8 @@ spec:
         - name: "default-flavor"
           resources:
             - name: "cpu"
-              nominalQuota: ${cpus}
+              nominalQuota: ${cluster_queue_max_cpus}
             - name: "memory"
-              nominalQuota: ${memory}
+              nominalQuota: ${cluster_queue_max_memory}
             - name: "ephemeral-storage"
-              nominalQuota: ${ephemeral_storage}
+              nominalQuota: ${cluster_queue_max_ephemeral_storage}

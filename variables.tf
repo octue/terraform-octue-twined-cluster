@@ -46,11 +46,6 @@ variable "kueue_version" {
   default = "v0.10.1"
 }
 
-variable "cpus" {
-  type        = number
-  default     = 2
-  description = "The maximum number of CPUs to provide to the cluster queue."
-}
 
 variable "memory" {
   type        = string
@@ -58,18 +53,41 @@ variable "memory" {
   description = "The maximum amount of memory to provide to the cluster queue."
 }
 
-variable "ephemeral_storage" {
-  type        = string
-  default     = "8Gi"
-  description = "The maximum amount of ephemeral storage to provide to the cluster queue."
-}
-
-variable "local_queue" {
-  type    = string
-  default = "local-queue"
-}
 
 variable "cluster_queue" {
-  type    = string
-  default = "cluster-queue"
+  type = object(
+    {
+      name                  = string
+      max_cpus              = number
+      max_memory            = string
+      max_ephemeral_storage = string
+    }
+  )
+  default = {
+    name                  = "cluster-queue"
+    max_cpus              = 10
+    max_memory            = "10Gi"
+    max_ephemeral_storage = "10Gi"
+  }
+  description = <<EOT
+    name: the name to give the cluster queue
+    max_cpus: the maximum number of CPUs the cluster queue can allocate to all questions
+    max_memory: the maximum amount of memory the cluster queue can allocate to all questions e.g. "500Mi" or "4Gi"
+    max_ephemeral_storage: the maximum amount of ephemeral storage the cluster queue can allocate to all questions e.g. "500Mi" or "4Gi"
+  EOT
+}
+
+
+variable "local_queue" {
+  type = object(
+    {
+      name = string
+    }
+  )
+  default = {
+    name = "local-queue"
+  }
+  description = <<EOT
+    name: the name to give the local queue
+  EOT
 }

@@ -23,7 +23,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
       BIGQUERY_EVENTS_TABLE            = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
       KUBERNETES_CLUSTER_ID            = google_container_cluster.primary.id
       KUBERNETES_SERVICE_ACCOUNT_NAME  = kubernetes_service_account.default.metadata[0].name
-      KUEUE_LOCAL_QUEUE                = var.local_queue
+      KUEUE_LOCAL_QUEUE                = var.local_queue.name
       OCTUE_SERVICES_TOPIC_NAME        = google_pubsub_topic.services_topic.name
     }
   }

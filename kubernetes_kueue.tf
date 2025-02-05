@@ -31,11 +31,11 @@ resource "time_sleep" "wait_for_kueue_installation" {
 data "kubectl_path_documents" "kueue_resources" {
   pattern = "${path.module}/kueue_resources/*.yaml"
   vars = {
-    cpus              = var.cpus
-    memory            = var.memory
-    ephemeral_storage = var.ephemeral_storage
-    local_queue       = var.local_queue
-    cluster_queue     = var.cluster_queue
+    cluster_queue_max_cpus              = var.cluster_queue.max_cpus
+    cluster_queue_max_memory            = var.cluster_queue.max_memory
+    cluster_queue_max_ephemeral_storage = var.cluster_queue.max_ephemeral_storage
+    local_queue           = var.local_queue.name
+    cluster_queue         = var.cluster_queue.name
   }
 }
 
