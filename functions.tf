@@ -9,7 +9,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     source {
       storage_source {
         bucket = "twined-gcp"
-        object = "event_handler/0.7.0-rc.12.zip"
+        object = "event_handler/0.7.0-rc.16.zip"
       }
     }
   }
@@ -19,12 +19,15 @@ resource "google_cloudfunctions2_function" "event_handler" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_URL = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${google_artifact_registry_repository.service_docker_images.name}"
-      BIGQUERY_EVENTS_TABLE            = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
-      KUBERNETES_CLUSTER_ID            = google_container_cluster.primary.id
-      KUBERNETES_SERVICE_ACCOUNT_NAME  = kubernetes_service_account.default.metadata[0].name
-      KUEUE_LOCAL_QUEUE                = var.local_queue.name
-      OCTUE_SERVICES_TOPIC_NAME        = google_pubsub_topic.services_topic.name
+      ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${google_artifact_registry_repository.service_docker_images.name}"
+      BIGQUERY_EVENTS_TABLE              = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
+      KUBERNETES_CLUSTER_ID              = google_container_cluster.primary.id
+      KUBERNETES_SERVICE_ACCOUNT_NAME    = kubernetes_service_account.default.metadata[0].name
+      KUEUE_LOCAL_QUEUE                  = var.local_queue.name
+      OCTUE_SERVICES_TOPIC_NAME          = google_pubsub_topic.services_topic.name
+      QUESTION_DEFAULT_CPUS              = var.question_default_resources.cpus
+      QUESTION_DEFAULT_MEMORY            = var.question_default_resources.memory
+      QUESTION_DEFAULT_EPHEMERAL_STORAGE = var.question_default_resources.ephemeral_storage
     }
   }
 

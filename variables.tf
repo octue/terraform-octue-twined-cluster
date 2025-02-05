@@ -2,32 +2,39 @@ variable "google_cloud_project_id" {
   type = string
 }
 
+
 variable "google_cloud_region" {
   type = string
 }
 
+
 variable "github_organisation" {
   type = string
 }
+
 
 variable "environment" {
   type    = string
   default = "main"
 }
 
+
 variable "service_account_names" {
   type = set(string)
 }
+
 
 variable "maximum_event_handler_instances" {
   type    = number
   default = 100
 }
 
+
 variable "maximum_service_registry_instances" {
   type    = number
   default = 10
 }
+
 
 variable "deletion_protection" {
   type        = bool
@@ -35,11 +42,13 @@ variable "deletion_protection" {
   description = "Apply deletion protection to the event store, Kubernetes cluster, and storage buckets."
 }
 
+
 variable "use_gha_workload_identity_federation" {
   type        = bool
   default     = false
   description = "Create a workload identity federation pool and provider for GitHub Actions."
 }
+
 
 variable "kueue_version" {
   type    = string
@@ -47,10 +56,24 @@ variable "kueue_version" {
 }
 
 
-variable "memory" {
-  type        = string
-  default     = "2Gi"
-  description = "The maximum amount of memory to provide to the cluster queue."
+variable "question_default_resources" {
+  type = object(
+    {
+      cpus              = number
+      memory            = string
+      ephemeral_storage = string
+    }
+  )
+  default = {
+    cpus              = 1
+    memory            = "512Mi"
+    ephemeral_storage = "1Gi"
+  }
+  description = <<EOT
+    cpus: the number of CPUs to allocate each question by default
+    memory: the amount of memory to allocate each question by default e.g. "500Mi" or "4Gi"
+    ephemeral_storage: the amount of ephemeral storage to allocate each question by default e.g. "500Mi" or "4Gi"
+  EOT
 }
 
 
