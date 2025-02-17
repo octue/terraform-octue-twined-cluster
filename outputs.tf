@@ -12,6 +12,12 @@ output "service_registry" {
 }
 
 
+output "storage_bucket" {
+  description = "The `gs://` URL of the storage bucket used to store service inputs, outputs, and diagnostics."
+  value = google_storage_bucket.default.url
+}
+
+
 output "services_topic" {
   description = "The Pub/Sub topic that all Octue Twined service events are published to."
   value       = google_pubsub_topic.services_topic.name
