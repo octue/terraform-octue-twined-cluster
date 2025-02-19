@@ -19,7 +19,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${google_artifact_registry_repository.service_docker_images.name}"
+      ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${var.artifact_registry_repository_name}"
       BIGQUERY_EVENTS_TABLE              = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
       KUBERNETES_CLUSTER_ID              = google_container_cluster.primary.id
       KUBERNETES_SERVICE_ACCOUNT_NAME    = kubernetes_service_account.default.metadata[0].name
@@ -61,7 +61,7 @@ resource "google_cloudfunctions2_function" "service_registry" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_ID = google_artifact_registry_repository.service_docker_images.id
+      ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${ var.google_cloud_project_id }/locations/${ var.google_cloud_region }/repositories/${ var.artifact_registry_repository_name }"
     }
   }
 }

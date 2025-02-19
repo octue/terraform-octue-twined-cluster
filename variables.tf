@@ -36,17 +36,16 @@ variable "maximum_service_registry_instances" {
 }
 
 
+variable "artifact_registry_repository_name" {
+  type = string
+  default = "octue-twined-services"
+}
+
+
 variable "deletion_protection" {
   type        = bool
   default     = true
   description = "Apply deletion protection to the event store, Kubernetes cluster, and storage buckets."
-}
-
-
-variable "use_gha_workload_identity_federation" {
-  type        = bool
-  default     = false
-  description = "Create a workload identity federation pool and provider for GitHub Actions."
 }
 
 
