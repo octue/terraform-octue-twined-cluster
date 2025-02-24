@@ -1,7 +1,6 @@
 locals {
   apis = toset(
     [
-      "bigquery.googleapis.com",         # BigQuery provides the event store for Twined service events (questions, results, log messages etc.).
       "cloudbuild.googleapis.com",
       "cloudfunctions.googleapis.com", # Cloud Functions runs the event handler that directs Twined service events to the event store.
       "container.googleapis.com",      # Google Kubernetes Engine (GKE) runs the Twined services
