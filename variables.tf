@@ -8,19 +8,9 @@ variable "google_cloud_region" {
 }
 
 
-variable "github_organisation" {
-  type = string
-}
-
-
 variable "environment" {
   type    = string
   default = "main"
-}
-
-
-variable "service_account_names" {
-  type = set(string)
 }
 
 
@@ -42,10 +32,20 @@ variable "artifact_registry_repository_name" {
 }
 
 
+variable "storage_bucket_name" {
+  type = string
+}
+
+
+variable "bigquery_events_table_id" {
+  type = string
+}
+
+
 variable "deletion_protection" {
   type        = bool
   default     = true
-  description = "Apply deletion protection to the event store, Kubernetes cluster, and storage buckets."
+  description = "Apply deletion protection to the Kubernetes cluster"
 }
 
 
