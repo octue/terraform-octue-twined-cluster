@@ -1,2 +1,2 @@
-# terraform-octue-twined
-A terraform module for creating an Octue service network.
+# terraform-octue-twined-cluster
+A terraform module for creating a Kubernetes cluster for an Octue Twined service network.
