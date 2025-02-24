@@ -39,6 +39,7 @@ variable "storage_bucket_name" {
 
 variable "bigquery_events_table_id" {
   type = string
+  default = "octue_twined.service_events"
 }
 
 
