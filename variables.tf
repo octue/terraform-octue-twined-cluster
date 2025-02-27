@@ -8,6 +8,11 @@ variable "google_cloud_region" {
 }
 
 
+variable "storage_bucket_name" {
+  type = string
+}
+
+
 variable "environment" {
   type    = string
   default = "main"
@@ -29,11 +34,6 @@ variable "maximum_service_registry_instances" {
 variable "artifact_registry_repository_name" {
   type = string
   default = "octue-twined-services"
-}
-
-
-variable "storage_bucket_name" {
-  type = string
 }
 
 
