@@ -37,6 +37,8 @@ resource "google_cloudfunctions2_function" "event_handler" {
     trigger_region = var.google_cloud_region
     retry_policy   = "RETRY_POLICY_RETRY"
   }
+
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
 
@@ -64,4 +66,5 @@ resource "google_cloudfunctions2_function" "service_registry" {
       ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${ var.google_cloud_project_id }/locations/${ var.google_cloud_region }/repositories/${ var.artifact_registry_repository_name }"
     }
   }
+  depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
