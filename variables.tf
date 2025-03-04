@@ -8,6 +8,11 @@ variable "google_cloud_region" {
 }
 
 
+variable "maintainer_service_account_names" {
+  type = set(string)
+}
+
+
 variable "storage_bucket_name" {
   type = string
 }
