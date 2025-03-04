@@ -1,63 +1,73 @@
 variable "google_cloud_project_id" {
-  type = string
+  type        = string
+  description = "The ID of the google cloud project to deploy resources in."
 }
 
 
 variable "google_cloud_region" {
-  type = string
+  type        = string
+  description = "The google cloud region to deploy resources in."
 }
 
 
 variable "maintainer_service_account_names" {
-  type = set(string)
+  type        = set(string)
+  description = "The names of the maintainer IAM service accounts (without the 'maintainer-' prefix)."
 }
 
 
 variable "storage_bucket_name" {
-  type = string
+  type        = string
+  description = "The name of the google cloud storage bucket to store Twined services data in."
 }
 
 
 variable "environment" {
-  type    = string
-  default = "main"
+  type        = string
+  default     = "main"
+  description = "The name of the environment to deploy the resources in (must be one word with no hyphens or underscores in). This can be derived from a Terraform workspace name and used to facilitate e.g. testing and staging environments alongside the production environment ('main')."
 }
 
 
 variable "maximum_event_handler_instances" {
-  type    = number
-  default = 100
+  type        = number
+  default     = 100
+  description = "The maximum number of instances to allow to be spun up simultaneously for the event handler. Each instance can handle one event at a time."
 }
 
 
 variable "maximum_service_registry_instances" {
-  type    = number
-  default = 10
+  type        = number
+  default     = 10
+  description = "The maximum number of instances to allow to be spun up simultaneously for the service registry. Each instance can handle one request at a time."
 }
 
 
 variable "artifact_registry_repository_name" {
-  type    = string
-  default = "octue-twined-services"
+  type        = string
+  default     = "octue-twined-services"
+  description = "The name of the artifact repository registry to get service revision images from."
 }
 
 
 variable "bigquery_events_table_id" {
-  type    = string
-  default = "octue_twined.service-events"
+  type        = string
+  default     = "octue_twined.service-events"
+  description = "The ID of the BigQuery table for the event handler to store events in. Provide in '<dataset-name>.<table-name>' format."
 }
 
 
 variable "deletion_protection" {
   type        = bool
   default     = true
-  description = "Apply deletion protection to the Kubernetes cluster"
+  description = "If `true`, disallow deletion of the Kubernetes cluster. `terraform apply` must be run after setting this to `false` before `terraform destroy` will be able to destroy the cluster."
 }
 
 
 variable "kueue_version" {
-  type    = string
-  default = "v0.10.1"
+  type        = string
+  default     = "v0.10.1"
+  description = "The version of Kueue to install on the Kubernetes cluster. Any release from https://github.com/kubernetes-sigs/kueue/releases with a `manifests.yaml` artifact can be used."
 }
 
 
@@ -99,9 +109,9 @@ variable "cluster_queue" {
   }
   description = <<EOT
     name: the name to give the cluster queue
-    max_cpus: the maximum number of CPUs the cluster queue can allocate to all questions
-    max_memory: the maximum amount of memory the cluster queue can allocate to all questions e.g. "500Mi" or "4Gi"
-    max_ephemeral_storage: the maximum amount of ephemeral storage the cluster queue can allocate to all questions e.g. "500Mi" or "4Gi"
+    max_cpus: the maximum number of CPUs the cluster queue can allocate to all questions running simultaneously on the cluster
+    max_memory: the maximum amount of memory the cluster queue can allocate to all questions running simultaneously on the cluster e.g. "500Mi" or "4Gi"
+    max_ephemeral_storage: the maximum amount of ephemeral storage the cluster queue can allocate to all questions running simultaneously on the cluster e.g. "500Mi" or "4Gi"
   EOT
 }
 
