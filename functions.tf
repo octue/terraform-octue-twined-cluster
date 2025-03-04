@@ -18,7 +18,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     max_instance_count = var.maximum_event_handler_instances
     available_memory   = "256M"
     timeout_seconds    = 60
-    ingress_settings = "ALLOW_INTERNAL_ONLY"
+    ingress_settings   = "ALLOW_INTERNAL_ONLY"
     environment_variables = {
       ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${var.artifact_registry_repository_name}"
       BIGQUERY_EVENTS_TABLE              = var.bigquery_events_table_id
@@ -64,7 +64,7 @@ resource "google_cloudfunctions2_function" "service_registry" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${ var.google_cloud_project_id }/locations/${ var.google_cloud_region }/repositories/${ var.artifact_registry_repository_name }"
+      ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${var.google_cloud_project_id}/locations/${var.google_cloud_region}/repositories/${var.artifact_registry_repository_name}"
     }
   }
   depends_on = [time_sleep.wait_for_google_apis_to_enable]

@@ -37,13 +37,13 @@ variable "maximum_service_registry_instances" {
 
 
 variable "artifact_registry_repository_name" {
-  type = string
+  type    = string
   default = "octue-twined-services"
 }
 
 
 variable "bigquery_events_table_id" {
-  type = string
+  type    = string
   default = "octue_twined.service-events"
 }
 
