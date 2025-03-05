@@ -43,13 +43,6 @@ variable "maximum_service_registry_instances" {
 }
 
 
-variable "bigquery_events_table_id" {
-  type        = string
-  default     = "octue_twined.service-events"
-  description = "The ID of the BigQuery table for the event handler to store events in. Provide in '<dataset-name>.<table-name>' format."
-}
-
-
 variable "deletion_protection" {
   type        = bool
   default     = true
