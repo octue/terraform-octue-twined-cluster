@@ -1,3 +1,7 @@
+locals {
+  artifact_registry_repository_name = "octue-twined-services"
+}
+
 resource "google_cloudfunctions2_function" "event_handler" {
   name        = "${var.environment}-octue-twined-service-event-handler"
   description = "A function for handling events from Octue Twined services."
@@ -20,7 +24,7 @@ resource "google_cloudfunctions2_function" "event_handler" {
     timeout_seconds    = 60
     ingress_settings   = "ALLOW_INTERNAL_ONLY"
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${var.artifact_registry_repository_name}"
+      ARTIFACT_REGISTRY_REPOSITORY_URL   = "${var.google_cloud_region}-docker.pkg.dev/${var.google_cloud_project_id}/${local.artifact_registry_repository_name}"
       BIGQUERY_EVENTS_TABLE              = var.bigquery_events_table_id
       KUBERNETES_CLUSTER_ID              = google_container_cluster.primary.id
       KUBERNETES_SERVICE_ACCOUNT_NAME    = kubernetes_service_account.default.metadata[0].name
@@ -64,7 +68,7 @@ resource "google_cloudfunctions2_function" "service_registry" {
     available_memory   = "256M"
     timeout_seconds    = 60
     environment_variables = {
-      ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${var.google_cloud_project_id}/locations/${var.google_cloud_region}/repositories/${var.artifact_registry_repository_name}"
+      ARTIFACT_REGISTRY_REPOSITORY_ID = "projects/${var.google_cloud_project_id}/locations/${var.google_cloud_region}/repositories/${local.artifact_registry_repository_name}"
     }
   }
   depends_on = [time_sleep.wait_for_google_apis_to_enable]

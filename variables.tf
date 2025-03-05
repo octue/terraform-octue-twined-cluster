@@ -43,13 +43,6 @@ variable "maximum_service_registry_instances" {
 }
 
 
-variable "artifact_registry_repository_name" {
-  type        = string
-  default     = "octue-twined-services"
-  description = "The name of the artifact repository registry to get Twined service revision images from."
-}
-
-
 variable "bigquery_events_table_id" {
   type        = string
   default     = "octue_twined.service-events"
