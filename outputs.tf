@@ -12,5 +12,5 @@ output "services_topic" {
 
 output "kubernetes_cluster" {
   value       = google_container_cluster.primary
-  description = "The Kubernetes cluster that Twined service containers are run on."
+  description = "The Kubernetes cluster that Twined service containers are run on. This output is used to authenticate the Kubernetes and Kubectl providers needed for this module."
 }

@@ -46,7 +46,7 @@ variable "maximum_service_registry_instances" {
 variable "artifact_registry_repository_name" {
   type        = string
   default     = "octue-twined-services"
-  description = "The name of the artifact repository registry to get service revision images from."
+  description = "The name of the artifact repository registry to get Twined service revision images from."
 }
 
 
