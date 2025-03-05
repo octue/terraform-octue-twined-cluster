@@ -1,36 +1,40 @@
 # terraform-octue-twined-cluster
-A terraform module for deploying a Kubernetes cluster for an Octue Twined service network to google cloud.
+A terraform module for deploying a Kubernetes cluster for an Octue Twined service network to GCP.
 
 
 # Infrastructure
+This module is designed to manage multiple environments (e.g. testing, staging, production) in the same GCP project
+simultaneously. Environments provide isolated Twined service networks that can't easily interact with service networks 
+in other environments. 
+
 These resources are automatically deployed for each given environment:
-- An autopilot GKE Kubernetes cluster for running service containers on. [Kueue](https://kueue.sigs.k8s.io/) is 
-  installed on the cluster to provide a queueing system where questions to Twined services are treated as jobs.
-- An IAM service account and roles mapped to a Kubernetes service account for the cluster to use to access the resources
-  deployed by the [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) Terraform module.
-- IAM roles for relevant google service agents
+- An autopilot GKE Kubernetes cluster for running Twined service containers on. [Kueue](https://kueue.sigs.k8s.io/) is 
+  installed on the cluster to provide a queueing system where questions sent to Twined services are treated as jobs
 - A Kueue cluster queue, local queue, and default resource flavour to implement the job queueing system on the cluster
 - A Pub/Sub topic for all Twined service events to be published to
 - An event handler cloud function that stores all events in the event store and dispatches question events to the 
-  Kubernetes cluster as a Kueue job
-- A service registry cloud function that checks if an image exists in the artifact registry repository for requested 
-  service revisions
+  Kubernetes cluster as Kueue jobs
+- A service registry cloud function providing an HTTP endpoint for checking if an image exists in the artifact registry 
+  repository for any requested service revisions
+- An IAM service account and roles mapped to a Kubernetes service account for the cluster to use to access the resources
+  deployed by the [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) Terraform module
+- IAM roles for relevant google service agents
 
 
 # Installation and usage
 
 > [!IMPORTANT]
 > This Terraform module must be deployed **after** the 
-> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) in the same GCP project. You must
-> deploy both to have a cloud-based Octue Twined services network. See 
+> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) module in the same GCP project. 
+> Both must be deployed to have a cloud-based Octue Twined services network. See 
 > [a live example here](https://github.com/octue/twined-infrastructure).
 
 > [!TIP]
 > Deploy this module in a separate Terraform configuration (directory/workspace) to the 
 > [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) 
-> module. This allows the option to spin down the Kubernetes cluster provided by the other module while keeping the core 
-> resources that contain all data produced by your Twined services. Spinning the cluster down entirely can save on 
-> running costs in periods of extended non-use while keeping all data available.
+> module. This allows the option to spin down the Kubernetes cluster while keeping the core resources that contain all 
+> data produced by your Twined services available. Spinning the cluster down entirely can save on running costs in 
+> periods of extended non-use while keeping all data available.
 
 Add the below blocks to your Terraform configuration and run:
 ```shell
@@ -41,7 +45,26 @@ If you're happy with the plan, run:
 ```shell
 terraform apply
 ```
-and approve the run.
+and approve the run. This will create resources whose names/IDs are prefixed with `<environment>-` where `<environment>`
+is `main` by default.
+
+## Environments
+The suggested way of managing environments is via [Terraform workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces).
+You can get started right away with the `main` environment by removing the `environment` input to the module. 
+
+To create and used other environments, see the example configuration below. It contains a `locals` block that 
+automatically generates the environment name from the name of the current Terraform workspace by taking the text after 
+the final hyphen. This supports uniquely named environments in Terraform Cloud (which must be unique within the 
+organisation) while keeping the environment prefix short but unique within your GCP project. For this to work well, 
+ensure your Terraform workspace names are slugified.
+
+For example, if your Terraform workspace was called `my-project-testing`, the environment would be called `testing` and
+your resources would be named like this:
+- Pub/Sub topic: `testing.octue.services`
+- Event handler: `testing-octue-twined-service-event-handler`
+- Service registry: `testing-octue-twined-service-registry`
+- Kubernetes cluster: `testing-octue-twined-cluster`
+
 
 ## Example configuration
 
@@ -155,18 +178,19 @@ variable "cluster_queue" {
   - All other required google cloud APIs are enabled automatically by the module 
 
 ## Authentication
+
+> [!TIP]
+> You can use the same service account as created for the [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core?tab=readme-ov-file#authentication)
+> module to skip steps 1 and 2.
+
 The module needs to authenticate with google cloud before it can be used:
 
-1. Create a service account for Terraform and assign it the `editor` and `owner` basic IAM permissions.
+1. Create a service account for Terraform and assign it the `editor` and `owner` basic IAM permissions
 2. Download a JSON key file for the service account
 3. If using Terraform Cloud, follow [these instructions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#using-terraform-cloud).
    before deleting the key file from your computer 
 4. If not using Terraform Cloud, follow [these instructions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication-configuration)
-   or use another [authentication method](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication).
-
-> [!TIP]
-> Use the same service account as created for the [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core?tab=readme-ov-file#authentication)
-> module to skip steps 1 and 2.
+   or use another [authentication method](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication)
 
 ## Destruction
 > [!WARNING]
