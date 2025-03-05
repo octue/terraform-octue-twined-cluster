@@ -210,7 +210,7 @@ terraform destroy
 |--------------------------------------|---------------|----------|----------------------------------------------------------------------------------------| 
 | `google_cloud_project_id`            | `string`      | Yes      | N/A                                                                                    |  
 | `google_cloud_region`                | `string`      | Yes      | N/A                                                                                    |
-| `maintainer_service_account_names`   | `set(string)` | No       | `set(["default"])`                                                                     |
+| `maintainer_service_account_names`   | `set(string)` | No       | `["default"]`                                                                          |
 | `environment`                        | `string`      | No       | `"main"`                                                                               |
 | `maximum_event_handler_instances`    | `number`      | No       | `100`                                                                                  |
 | `maximum_service_registry_instances` | `number`      | No       | `10`                                                                                   |
