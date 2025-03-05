@@ -203,10 +203,10 @@ See [`variables.tf`](/variables.tf) for descriptions.
 
 # Output reference
 
-| Name                 | Type     |
-|----------------------|----------|
-| `service_registry`   | `string` | 
-| `services_topic`     | `string` | 
-| `kubernetes_cluster` | `string` | 
+| Name                   | Type     |
+|------------------------|----------|
+| `service_registry_url` | `string` | 
+| `services_topic_name`  | `string` | 
+| `kubernetes_cluster`   | `string` | 
 
 See [`outputs.tf`](/outputs.tf) for descriptions.
