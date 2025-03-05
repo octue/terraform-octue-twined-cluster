@@ -39,7 +39,7 @@ resource "google_project_iam_member" "kubernetes_service_account__roles" {
 
 
 resource "google_storage_bucket_iam_member" "kubernetes__storage__admin" {
-  bucket = var.storage_bucket_name
+  bucket = "${var.google_cloud_project_id}-octue-twined"
   role   = "roles/storage.admin"
   member = "serviceAccount:${google_service_account.kubernetes.email}"
 }

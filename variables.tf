@@ -16,12 +16,6 @@ variable "maintainer_service_account_names" {
 }
 
 
-variable "storage_bucket_name" {
-  type        = string
-  description = "The name of the google cloud storage bucket to store Twined services data in."
-}
-
-
 variable "environment" {
   type        = string
   default     = "main"

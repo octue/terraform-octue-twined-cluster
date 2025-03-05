@@ -105,7 +105,6 @@ module "octue_twined_cluster" {
   google_cloud_project_id = var.google_cloud_project_id
   google_cloud_region = var.google_cloud_region
   maintainer_service_account_names = ["person1", "person2"]
-  storage_bucket_name = var.storage_bucket_name
   environment = local.environment
   cluster_queue = var.cluster_queue
 }
@@ -123,12 +122,6 @@ variable "google_cloud_project_id" {
 variable "google_cloud_region" {
   type = string
   default = "<google-cloud-region>"
-}
-
-
-variable "storage_bucket_name" {
-  type = string
-  default = "<google-cloud-project-id>-octue-twined"
 }
 
 
@@ -195,7 +188,6 @@ terraform destroy
 | `google_cloud_project_id`            | `string`      | Yes      | N/A                                                                                    |  
 | `google_cloud_region`                | `string`      | Yes      | N/A                                                                                    |
 | `maintainer_service_account_names`   | `set(string)` | Yes      | N/A                                                                                    |
-| `storage_bucket_name`                | `string`      | Yes      | N/A                                                                                    |
 | `environment`                        | `string`      | No       | `"main"`                                                                               |
 | `maximum_event_handler_instances`    | `number`      | No       | `100`                                                                                  |
 | `maximum_service_registry_instances` | `number`      | No       | `10`                                                                                   |
