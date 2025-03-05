@@ -127,7 +127,6 @@ module "octue_twined_cluster" {
   source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=0.1.0"
   google_cloud_project_id = var.google_cloud_project_id
   google_cloud_region = var.google_cloud_region
-  maintainer_service_account_names = ["person1", "person2"]
   environment = local.environment
   cluster_queue = var.cluster_queue
 }
@@ -211,7 +210,7 @@ terraform destroy
 |--------------------------------------|---------------|----------|----------------------------------------------------------------------------------------| 
 | `google_cloud_project_id`            | `string`      | Yes      | N/A                                                                                    |  
 | `google_cloud_region`                | `string`      | Yes      | N/A                                                                                    |
-| `maintainer_service_account_names`   | `set(string)` | Yes      | N/A                                                                                    |
+| `maintainer_service_account_names`   | `set(string)` | No       | `set(["default"])`                                                                     |
 | `environment`                        | `string`      | No       | `"main"`                                                                               |
 | `maximum_event_handler_instances`    | `number`      | No       | `100`                                                                                  |
 | `maximum_service_registry_instances` | `number`      | No       | `10`                                                                                   |

@@ -12,6 +12,7 @@ variable "google_cloud_region" {
 
 variable "maintainer_service_account_names" {
   type        = set(string)
+  default     = ["default"]
   description = "The names of the maintainer IAM service accounts (without the 'maintainer-' prefix)."
 }
 
