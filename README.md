@@ -1,6 +1,19 @@
 # terraform-octue-twined-cluster
 A terraform module for deploying a Kubernetes cluster for an Octue Twined service network to GCP.
 
+> [!IMPORTANT]
+> This Terraform module must be deployed **after** the 
+> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) module in the same GCP project. 
+> Both must be deployed to have a cloud-based Octue Twined services network. See 
+> [a live example here](https://github.com/octue/twined-infrastructure).
+
+> [!TIP]
+> Deploy this module in a separate Terraform configuration (directory/workspace) to the 
+> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) 
+> module. This allows the option to spin down the Kubernetes cluster while keeping the core resources that contain all 
+> data produced by your Twined services available. Spinning the cluster down entirely can save on running costs in 
+> periods of extended non-use while keeping all data available.
+
 
 # Infrastructure
 This module is designed to manage multiple environments (e.g. testing, staging, production) in the same GCP project
@@ -22,20 +35,6 @@ These resources are automatically deployed for each given environment:
 
 
 # Installation and usage
-
-> [!IMPORTANT]
-> This Terraform module must be deployed **after** the 
-> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) module in the same GCP project. 
-> Both must be deployed to have a cloud-based Octue Twined services network. See 
-> [a live example here](https://github.com/octue/twined-infrastructure).
-
-> [!TIP]
-> Deploy this module in a separate Terraform configuration (directory/workspace) to the 
-> [terraform-octue-twined-core](https://github.com/octue/terraform-octue-twined-core) 
-> module. This allows the option to spin down the Kubernetes cluster while keeping the core resources that contain all 
-> data produced by your Twined services available. Spinning the cluster down entirely can save on running costs in 
-> periods of extended non-use while keeping all data available.
-
 Add the below blocks to your Terraform configuration and run:
 ```shell
 terraform plan
