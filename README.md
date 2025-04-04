@@ -37,6 +37,7 @@ These resources are automatically deployed for each given environment:
 # Installation and usage
 Add the below blocks to your Terraform configuration and run:
 ```shell
+terraform init
 terraform plan
 ```
 
