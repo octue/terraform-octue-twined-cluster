@@ -15,7 +15,8 @@ locals {
 resource "google_project_service" "google_apis" {
   for_each                   = local.apis
   service                    = each.key
-  disable_dependent_services = true
+  disable_dependent_services = false
+  disable_on_destroy         = false
   project                    = var.google_cloud_project_id
 }
 

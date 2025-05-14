@@ -124,7 +124,7 @@ locals {
 
 
 module "octue_twined_cluster" {
-  source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=0.1.0"
+  source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=0.1.1"
   google_cloud_project_id = var.google_cloud_project_id
   google_cloud_region = var.google_cloud_region
   environment = local.environment
