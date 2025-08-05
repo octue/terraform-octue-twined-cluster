@@ -60,7 +60,7 @@ ensure your Terraform workspace names are slugified.
 
 For example, if your Terraform workspace was called `my-project-testing`, the environment would be called `testing` and
 your resources would be named like this:
-- Pub/Sub topic: `testing.octue.services`
+- Pub/Sub topic: `testing.octue.twined.services`
 - Event handler: `testing-octue-twined-service-event-handler`
 - Service registry: `testing-octue-twined-service-registry`
 - Kubernetes cluster: `testing-octue-twined-cluster`
