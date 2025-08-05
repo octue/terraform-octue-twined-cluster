@@ -48,6 +48,12 @@ terraform apply
 and approve the run. This will create resources whose names/IDs are prefixed with `<environment>-` where `<environment>`
 is `main` by default.
 
+> [!IMPORTANT]
+> If you're using an environment other than `main` [(see below)](#environments), then before using the 
+> [Twined CLI/SDK](https://github.com/octue/octue-sdk-python) to ask any questions to your Twined > services, set the
+> `TWINED_SERVICES_TOPIC_NAME` environment variable to the value of the [`services_topic_name`](#output-reference) 
+> Terraform output.
+
 ## Environments
 The suggested way of managing environments is via [Terraform workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces).
 You can get started right away with the `main` environment by removing the `environment` input to the module. 
