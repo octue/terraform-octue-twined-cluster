@@ -48,6 +48,12 @@ terraform apply
 and approve the run. This will create resources whose names/IDs are prefixed with `<environment>-` where `<environment>`
 is `main` by default.
 
+> [!IMPORTANT]
+> If you're using an environment other than `main` [(see below)](#environments), then before using the 
+> [Twined CLI/SDK](https://github.com/octue/octue-sdk-python) to ask any questions to your Twined > services, set the
+> `TWINED_SERVICES_TOPIC_NAME` environment variable to the value of the [`services_topic_name`](#output-reference) 
+> Terraform output.
+
 ## Environments
 The suggested way of managing environments is via [Terraform workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces).
 You can get started right away with the `main` environment by removing the `environment` input to the module. 
@@ -60,7 +66,7 @@ ensure your Terraform workspace names are slugified.
 
 For example, if your Terraform workspace was called `my-project-testing`, the environment would be called `testing` and
 your resources would be named like this:
-- Pub/Sub topic: `testing.octue.services`
+- Pub/Sub topic: `testing.octue.twined.services`
 - Event handler: `testing-octue-twined-service-event-handler`
 - Service registry: `testing-octue-twined-service-registry`
 - Kubernetes cluster: `testing-octue-twined-cluster`
@@ -124,7 +130,7 @@ locals {
 
 
 module "octue_twined_cluster" {
-  source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=0.1.1"
+  source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=0.2.0"
   google_cloud_project_id = var.google_cloud_project_id
   google_cloud_region = var.google_cloud_region
   environment = local.environment
