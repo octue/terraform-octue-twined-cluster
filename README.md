@@ -50,7 +50,7 @@ is `main` by default.
 
 > [!IMPORTANT]
 > If you're using an environment other than `main` [(see below)](#environments), then before using the 
-> [Twined CLI/SDK](https://github.com/octue/octue-sdk-python) to ask any questions to your Twined > services, set the
+> [Twined CLI/SDK](https://github.com/octue/octue-sdk-python) to ask any questions to your Twined services, set the
 > `TWINED_SERVICES_TOPIC_NAME` environment variable to the value of the [`services_topic_name`](#output-reference) 
 > Terraform output.
 
