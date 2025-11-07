@@ -19,7 +19,7 @@ variable "maintainer_service_account_names" {
 
 variable "environment" {
   type        = string
-  default     = "main"
+  default     = "default"
   description = "The name of the environment to deploy the resources in (must be one word with no hyphens or underscores in). This can be derived from a Terraform workspace name and used to facilitate e.g. testing and staging environments alongside the production environment ('main')."
 }
 

@@ -46,17 +46,17 @@ If you're happy with the plan, run:
 terraform apply
 ```
 and approve the run. This will create resources whose names/IDs are prefixed with `<environment>-` where `<environment>`
-is `main` by default.
+is `default` by default.
 
 > [!IMPORTANT]
-> If you're using an environment other than `main` [(see below)](#environments), then before using the 
+> If you're using an environment other than `default` [(see below)](#environments), then before using the 
 > [Twined CLI/SDK](https://github.com/octue/octue-sdk-python) to ask any questions to your Twined services, set the
 > `TWINED_SERVICES_TOPIC_NAME` environment variable to the value of the [`services_topic_name`](#output-reference) 
 > Terraform output.
 
 ## Environments
 The suggested way of managing environments is via [Terraform workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces).
-You can get started right away with the `main` environment by removing the `environment` input to the module. 
+You can get started right away with the `default` environment by removing the `environment` input to the module. 
 
 To create and used other environments, see the example configuration below. It contains a `locals` block that 
 automatically generates the environment name from the name of the current Terraform workspace by taking the text after 
@@ -217,7 +217,7 @@ terraform destroy
 | `google_cloud_project_id`            | `string`      | Yes      | N/A                                                                                    |  
 | `google_cloud_region`                | `string`      | Yes      | N/A                                                                                    |
 | `maintainer_service_account_names`   | `set(string)` | No       | `["default"]`                                                                          |
-| `environment`                        | `string`      | No       | `"main"`                                                                               |
+| `environment`                        | `string`      | No       | `"default"`                                                                               |
 | `maximum_event_handler_instances`    | `number`      | No       | `100`                                                                                  |
 | `maximum_service_registry_instances` | `number`      | No       | `10`                                                                                   |
 | `deletion_protection`                | `bool`        | No       | `true`                                                                                 |
